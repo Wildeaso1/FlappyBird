@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a423602fc360734fbc6cf3c3602f063, type: 3}
   m_Name: LowerWall
   m_EditorClassIdentifier: 
-  Wall: {fileID: 0}
-  Speed: 1
+  Wall: {fileID: 4890870181428257822, guid: 2f71ceef5463c13478ac69ec649399de, type: 3}
+  Speed: 3
