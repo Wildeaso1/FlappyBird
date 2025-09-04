@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LowerWall
   m_EditorClassIdentifier: 
   Wall: {fileID: 0}
-  Speed: 0
+  Speed: 1
