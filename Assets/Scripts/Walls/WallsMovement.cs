@@ -11,6 +11,10 @@ namespace Walls
         [SerializeField] private GameObject player;
         [SerializeField] private WallsObject  wall;
 
+        private GameObject _manager;
+        private WallManager _wallManager;
+        private bool _isMovingAway;
+
         private void Awake()
         {
             player = GameObject.FindWithTag("Player");
@@ -18,7 +22,7 @@ namespace Walls
             wall.despawnPosition.x = transform.position.x;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             MoveWall();
         }
@@ -33,30 +37,28 @@ namespace Walls
                 print("destroyed");
             }
 
-            if (z <= player.transform.position.z)
+            if (z <= player.transform.position.z && !_isMovingAway)
             {
-                var tPosition = transform.position;
                 switch (wall.wallDirection)
                 {
                     case WallDirection.UP:
-                        tPosition.y += 20;
+                        wall.despawnPosition.y += 20;
                         break;
                     case WallDirection.DOWN:
-                        tPosition.y -= 20;
+                        wall.despawnPosition.y -= 20;
                         break;
                     case WallDirection.LEFT:
-                        tPosition.x -= 20;
+                        wall.despawnPosition.x -= 20;
                         break;
                     case WallDirection.RIGHT:
-                        tPosition.x += 20;
+                        wall.despawnPosition.x += 20;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                MoveWallTowards(tPosition);
+                _isMovingAway = true;
             }
-            
-            transform.position = Vector3.MoveTowards(transform.position, wall.despawnPosition, wall.speed * Time.deltaTime);
+            MoveWallTowards(wall.despawnPosition);
         }
 
         private void MoveWallTowards(Vector3 position)
