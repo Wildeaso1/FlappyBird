@@ -8,16 +8,14 @@ namespace Walls
 {
     public class WallsMovement : MonoBehaviour
     {
-        [SerializeField] private float speed;
-        [SerializeField] private Vector3 despawnPosition;
         [SerializeField] private GameObject player;
-        [SerializeField] private WallsObject  wallsObject;
+        [SerializeField] private WallsObject  wall;
 
         private void Awake()
         {
             player = GameObject.FindWithTag("Player");
-            despawnPosition.y = transform.position.y;
-            despawnPosition.x = transform.position.x;
+            wall.despawnPosition.y = transform.position.y;
+            wall.despawnPosition.x = transform.position.x;
         }
 
         private void Update()
@@ -29,7 +27,7 @@ namespace Walls
         {
             float z =  transform.position.z;
 
-            if (z <= despawnPosition.z)
+            if (z <= wall.despawnPosition.z)
             {
                 Destroy(gameObject);
                 print("destroyed");
@@ -38,13 +36,13 @@ namespace Walls
             if (z <= player.transform.position.z)
             {
                 var tPosition = transform.position;
-                switch (wallsObject.wallDirection)
+                switch (wall.wallDirection)
                 {
                     case WallDirection.UP:
                         break;
                     case WallDirection.DOWN:
                         tPosition.y -= 20;
-                        transform.position = Vector3.MoveTowards(transform.position,  tPosition, Time.deltaTime * speed);
+                        transform.position = Vector3.MoveTowards(transform.position,  tPosition, Time.deltaTime * wall.speed);
                         break;
                     case WallDirection.LEFT:
                         break;
@@ -55,9 +53,16 @@ namespace Walls
                 }
             }
             
-            transform.position = Vector3.MoveTowards(transform.position, despawnPosition, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, wall.despawnPosition, wall.speed * Time.deltaTime);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                Destroy(player);
+                Destroy(gameObject);
+            }
         }
     }
-
-
 }

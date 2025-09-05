@@ -121,7 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19780421b75824944a0541ed60413933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  despawnPosition: {x: 0, y: 0, z: -20}
   player: {fileID: 0}
-  wallsObject: {fileID: 11400000, guid: 565b7b381f4bc824f8df348f796029df, type: 2}
+  wall: {fileID: 11400000, guid: 565b7b381f4bc824f8df348f796029df, type: 2}
