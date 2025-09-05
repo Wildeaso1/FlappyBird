@@ -8,15 +8,16 @@ namespace Walls
     public class WallManager : MonoBehaviour
     {
         [SerializeField] private WallsObject[] walls;
-        [SerializeField] private Vector3 spawnTransform;
 
         private void Start()
         {
             var r = Random.Range(0, walls.Length);
             
-            var prefab = walls[r].Wall;
+            var prefab = walls[r].wall;
+            var spawnPosition = walls[r].spawnPosition;
+            print($"{prefab.name} spawn position: {spawnPosition}");
             
-            Instantiate(prefab, spawnTransform, Quaternion.identity);
+            Instantiate(prefab,spawnPosition , Quaternion.identity);
         }
     }
 }
