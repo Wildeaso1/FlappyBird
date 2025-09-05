@@ -39,23 +39,30 @@ namespace Walls
                 switch (wall.wallDirection)
                 {
                     case WallDirection.UP:
+                        tPosition.y += 20;
                         break;
                     case WallDirection.DOWN:
                         tPosition.y -= 20;
-                        transform.position = Vector3.MoveTowards(transform.position,  tPosition, Time.deltaTime * wall.speed);
                         break;
                     case WallDirection.LEFT:
+                        tPosition.x -= 20;
                         break;
                     case WallDirection.RIGHT:
+                        tPosition.x += 20;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                MoveWallTowards(tPosition);
             }
             
             transform.position = Vector3.MoveTowards(transform.position, wall.despawnPosition, wall.speed * Time.deltaTime);
         }
 
+        private void MoveWallTowards(Vector3 position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position,  position, Time.deltaTime * wall.speed);
+        }
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
