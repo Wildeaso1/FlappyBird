@@ -15,4 +15,5 @@ MonoBehaviour:
   wall: {fileID: 4890870181428257822, guid: 2f71ceef5463c13478ac69ec649399de, type: 3}
   speed: 5
   spawnPosition: {x: 0, y: -5, z: 15}
+  despawnPosition: {x: 0, y: -5, z: -20}
   wallDirection: 1

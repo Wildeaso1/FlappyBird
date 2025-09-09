@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a423602fc360734fbc6cf3c3602f063, type: 3}
-  m_Name: LeftWall
+  m_Name: RightWall
   m_EditorClassIdentifier: 
-  wall: {fileID: 4956267645466340029, guid: 9bec58166b3115a49ba0439a70c9afd3, type: 3}
-  speed: 5
-  spawnPosition: {x: -5, y: 0, z: 15}
-  despawnPosition: {x: -5, y: 0, z: -20}
-  wallDirection: 2
+  wall: {fileID: 0}
+  speed: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
+  despawnPosition: {x: 0, y: 0, z: 0}
+  wallDirection: 0
