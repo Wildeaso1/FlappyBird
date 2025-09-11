@@ -1265,8 +1265,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 565b7b381f4bc824f8df348f796029df, type: 2}
   - {fileID: 11400000, guid: 3cab87a2bdae4b94f892f92e396ccd53, type: 2}
   - {fileID: 11400000, guid: 245ca55b578df8947987fecb73abc5a6, type: 2}
+  - {fileID: 11400000, guid: aa593db6f66199a4abd9cad346b34ca6, type: 2}
   activeWalls: []
-  spawnCount: 3
+  spawnCount: 5
 --- !u!4 &2042060050
 Transform:
   m_ObjectHideFlags: 0
