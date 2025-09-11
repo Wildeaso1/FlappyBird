@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a423602fc360734fbc6cf3c3602f063, type: 3}
   m_Name: RightWall
   m_EditorClassIdentifier: 
-  wall: {fileID: 0}
-  speed: 1
-  spawnPosition: {x: 0, y: 0, z: 0}
-  despawnPosition: {x: 0, y: 0, z: 0}
-  wallDirection: 0
+  wall: {fileID: 4956267645466340029, guid: c495a69f0860ac145b06700946dfe171, type: 3}
+  speed: 5
+  spawnPosition: {x: 5, y: 0, z: 20}
+  despawnPosition: {x: 5, y: 0, z: -10}
+  wallDirection: 3

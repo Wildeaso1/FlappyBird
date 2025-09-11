@@ -33,7 +33,7 @@ namespace Walls
 
             if (z <= wall.despawnPosition.z)
             {
-                _wallManager.RemoveWall(wall.wall);
+                _wallManager.RemoveWall(gameObject);
                 Destroy(gameObject);
             }
 

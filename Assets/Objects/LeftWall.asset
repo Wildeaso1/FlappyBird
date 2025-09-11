@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wall: {fileID: 4956267645466340029, guid: 9bec58166b3115a49ba0439a70c9afd3, type: 3}
   speed: 5
-  spawnPosition: {x: -5, y: 0, z: 15}
-  despawnPosition: {x: -5, y: 0, z: -20}
+  spawnPosition: {x: -5, y: 0, z: 20}
+  despawnPosition: {x: -5, y: 0, z: -10}
   wallDirection: 2

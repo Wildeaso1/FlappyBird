@@ -30,13 +30,17 @@ namespace Walls
             var prefab = walls[r].wall;
             var spawnPosition = walls[r].spawnPosition;
 
-            for (int i = 0; i < walls.Length; i++)
+            if (!_firstSpawn && activeWalls.Count > 0)
             {
-                spawnPosition.z += Random.Range(5, 20) * i;
+                var lastWall = activeWalls[activeWalls.Count - 1];
+                spawnPosition.z = lastWall.transform.position.z + Random.Range(5,20);
             }
-            Instantiate(prefab,spawnPosition, prefab.transform.rotation);
+            else
+                _firstSpawn = false;
             
-            activeWalls.Add(prefab);
+            var spawnedWall = Instantiate(prefab,spawnPosition, prefab.transform.rotation);
+            
+            activeWalls.Add(spawnedWall);
         }
 
         public void RemoveWall(GameObject wall)
