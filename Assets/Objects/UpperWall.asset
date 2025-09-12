@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wall: {fileID: 4890870181428257822, guid: 4b8f677261e136949bd5dd8de142399e, type: 3}
   speed: 5
+  ScoreToAdd: 1
   spawnPosition: {x: 0, y: 7, z: 20}
   despawnPosition: {x: 0, y: 7, z: -10}
   wallDirection: 0

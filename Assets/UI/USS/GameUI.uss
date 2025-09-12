@@ -1,0 +1,8 @@
+.MainContainer {
+}
+
+.ScoreText {
+    font-size: 95px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}

@@ -8,6 +8,7 @@ namespace Framework.Scriptable_Objects
     {
         public GameObject wall;
         [Range(1,10)] public float speed;
+        public int ScoreToAdd;
         public Vector3 spawnPosition;
         public Vector3 despawnPosition;
         public WallDirection wallDirection;

@@ -1,4 +1,5 @@
 using System;
+using Data;
 using Framework.Enums;
 using Framework.Scriptable_Objects;
 using UnityEngine;
@@ -10,16 +11,18 @@ namespace Walls
         [SerializeField] private GameObject player;
         [SerializeField] private WallsObject  wall;
         
-        private GameObject _wallManagerObject;
+        private GameObject _managerObject;
         private WallManager _wallManager;
+        private GameData _gameData;
         private bool _isMovingAway;
         private Vector3 endPosition;
 
         private void Awake()
         {
             player = GameObject.FindWithTag("Player");
-            _wallManagerObject = GameObject.FindWithTag("Wallmanager");
-            _wallManager = _wallManagerObject.GetComponent<WallManager>();
+            _managerObject = GameObject.FindWithTag("Manager");
+            _gameData = _managerObject.GetComponent<GameData>();
+            _wallManager = _managerObject.GetComponent<WallManager>();
             wall.despawnPosition.y = transform.position.y;
             wall.despawnPosition.x = transform.position.x;
             endPosition = wall.despawnPosition;
@@ -29,6 +32,9 @@ namespace Walls
 
         private void MoveWall()
         {
+            if (!player.activeInHierarchy)
+                return;
+            
             float z =  transform.position.z;
 
             if (z <= wall.despawnPosition.z)
@@ -56,9 +62,9 @@ namespace Walls
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                _gameData.IncreaseScore(wall.ScoreToAdd);
                 _isMovingAway = true;
             }
-            
             MoveWallTowards(endPosition);
         }
 
@@ -70,7 +76,7 @@ namespace Walls
         {
             if (other.CompareTag("Player"))
             {
-                Destroy(player);
+                player.SetActive(false);
                 Destroy(gameObject);
             }
         }
