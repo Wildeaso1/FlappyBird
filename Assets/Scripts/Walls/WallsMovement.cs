@@ -14,8 +14,10 @@ namespace Walls
         private GameObject _managerObject;
         private WallManager _wallManager;
         private GameData _gameData;
+        private bool _isMovingIn = true;
         private bool _isMovingAway;
         private Vector3 endPosition;
+        private Vector3 startPosition;
 
         private void Awake()
         {
@@ -23,9 +25,16 @@ namespace Walls
             _managerObject = GameObject.FindWithTag("Manager");
             _gameData = _managerObject.GetComponent<GameData>();
             _wallManager = _managerObject.GetComponent<WallManager>();
-            wall.despawnPosition.y = transform.position.y;
-            wall.despawnPosition.x = transform.position.x;
+            startPosition.x = wall.spawnPosition.x;
+            startPosition.y = wall.spawnPosition.y;
+            wall.despawnPosition.y = startPosition.y;
+            wall.despawnPosition.x = startPosition.x;
             endPosition = wall.despawnPosition;
+        }
+
+        private void Start()
+        {
+            startPosition.z = transform.position.z;
         }
 
         private void FixedUpdate() => MoveWall();
@@ -34,6 +43,12 @@ namespace Walls
         {
             if (!player.activeInHierarchy)
                 return;
+            if (_isMovingIn)
+                MoveWallTowards(startPosition);
+            print($"{startPosition.x}, {startPosition.y}");
+            
+            if(transform.position == startPosition)
+                _isMovingIn = false;
             
             float z =  transform.position.z;
 
@@ -45,6 +60,7 @@ namespace Walls
 
             if (z <= player.transform.position.z && !_isMovingAway)
             {
+                print($"Reached player");
                 switch (wall.wallDirection)
                 {
                     case WallDirection.UP:
@@ -65,6 +81,8 @@ namespace Walls
                 _gameData.IncreaseScore(wall.ScoreToAdd);
                 _isMovingAway = true;
             }
+
+            if (_isMovingIn) return;
             MoveWallTowards(endPosition);
         }
 
