@@ -13,10 +13,12 @@ namespace Walls
         [SerializeField] private WallsObject[] walls;
         [SerializeField] private List<GameObject> activeWalls;
         [SerializeField] private int spawnCount;
+        [SerializeField] private float spawnDelay = 0.1f;
         private GameData _gameData;
         
         private bool _firstSpawn;
         private int _wallsLength;
+        private float _lastSpawnTime;
 
         private void Awake()
         {
@@ -30,8 +32,10 @@ namespace Walls
         {
             if (activeWalls.Count >= spawnCount)
                 return;
-            
-            SpawnWall();
+            if (Time.time - _lastSpawnTime >= spawnDelay)
+            {
+                SpawnWall();
+            }
         }
 
         private void SpawnWall()
@@ -42,7 +46,7 @@ namespace Walls
             
             var prefab = walls[r].wall;
             var spawnPosition = walls[r].spawnPosition;
-            if (_gameData.Score >= 10) walls[r].speed = 8f;
+            print($"Spawn Position: {spawnPosition}");
             switch (walls[r].wallDirection)
             {
                 case WallDirection.UP:
@@ -74,8 +78,41 @@ namespace Walls
 
         public void RemoveWall(GameObject wall)
         {
-            if (wall != null)
+            if (wall)
                 activeWalls.Remove(wall);
+        }
+        public void IncreaseWallsSpeed()
+        {
+            foreach (var wall in walls)
+            {
+                IncreaseSpeed(wall);
+            }
+        }
+        private void IncreaseSpeed(WallsObject wall)
+        {
+            switch (_gameData.Score)
+            {
+                case 0:
+                    wall.speed = 5f;
+                    break;
+                case 10:
+                    wall.speed = 8f;
+                    break;
+                case 20:
+                    wall.speed = 10f;
+                    break;
+                case 30:
+                    wall.speed = 12f;
+                    break;
+                case 50:
+                    wall.speed = 15f;
+                    break;
+                case 100:
+                    wall.speed = 20f;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

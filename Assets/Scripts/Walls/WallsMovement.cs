@@ -45,9 +45,8 @@ namespace Walls
                 return;
             if (_isMovingIn)
                 MoveWallTowards(startPosition);
-            print($"{startPosition.x}, {startPosition.y}");
             
-            if(transform.position == startPosition)
+            if(Vector3.Distance(transform.position, startPosition) <= 0.1f)
                 _isMovingIn = false;
             
             float z =  transform.position.z;
