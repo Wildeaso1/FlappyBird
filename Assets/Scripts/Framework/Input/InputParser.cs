@@ -31,6 +31,7 @@ namespace Framework.Input
             inputAsset["Jump"].performed += Jump;
             inputAsset["Restart"].performed += Restart;
             inputAsset["Quit"].performed += Quit;
+            inputAsset["Dash"].performed += Dash;
         }
 
         private void RemoveListeners()
@@ -38,12 +39,21 @@ namespace Framework.Input
             inputAsset["Jump"].performed -= Jump;
             inputAsset["Restart"].performed -= Restart;
             inputAsset["Quit"].performed -= Quit;
+            inputAsset["Dash"].performed -= Dash;
         }
 
         private void Jump(InputAction.CallbackContext context)
         {
             if (gameData.IsGameOver) return;
             playerMovement.Jump();
+        }
+
+        private void Dash(InputAction.CallbackContext context)
+        {
+            if (gameData.IsGameOver) return;
+            
+            float currentMoveDirection = inputAsset["Move"].ReadValue<float>();
+            playerMovement.Dash(currentMoveDirection);
         }
 
         private void Restart(InputAction.CallbackContext context) => gameData.RestartGame();

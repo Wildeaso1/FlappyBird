@@ -7,16 +7,19 @@ namespace Player
     {
         [SerializeField,Range(10,20)] private float jumpForce;
         [SerializeField, Range(5,10)] private float moveSpeed;
+        [SerializeField, Range(1, 5)] private float dashCooldown;
+        [SerializeField, Range(10, 30)] private float dashForce;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private UnityEvent onFirstJump;
         public UnityEvent onWallHit;
         
         private Rigidbody _rigidbody;
-        private float leftBoundary;
-        private float rightBoundary;
-        private float topBoundary;
-        private float bottomBoundary;
-        private bool isFirstJump = true;
+        private float _leftBoundary;
+        private float _rightBoundary;
+        private float _topBoundary;
+        private float _bottomBoundary;
+        private float _lastDashTime;
+        private bool _isFirstJump = true;
 
         private void Start()
         {
@@ -29,11 +32,11 @@ namespace Player
         }
         public void Jump()
         {
-            if (isFirstJump)
+            if (_isFirstJump)
             {
                 onFirstJump?.Invoke();
                 _rigidbody.useGravity = true;
-                isFirstJump = false;
+                _isFirstJump = false;
             }
             _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -42,6 +45,19 @@ namespace Player
         {
             _rigidbody.AddForce(new Vector3(moveDirection * moveSpeed, 0) * Time.deltaTime, ForceMode.Impulse);
         }
+
+        public void Dash(float moveDirection)
+        {
+            if (Time.time - _lastDashTime < dashCooldown)
+                return;
+            print($"Test");
+            
+            if(Mathf.Abs(moveDirection) < 0.1f)
+                return;
+            _lastDashTime = Time.time;
+            Vector3 dashDirection = new Vector3(moveDirection, 0, 0);
+            _rigidbody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+        }
         
         private void CalculateBoundaries()
         {
@@ -49,16 +65,16 @@ namespace Player
             Vector3 bottomLeft = playerCamera.ScreenToWorldPoint(new Vector3(0, 0, distance));
             Vector3 topRight = playerCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, distance));
 
-            leftBoundary = bottomLeft.x;
-            rightBoundary = topRight.x;
-            bottomBoundary = bottomLeft.y;
-            topBoundary = topRight.y;
+            _leftBoundary = bottomLeft.x;
+            _rightBoundary = topRight.x;
+            _bottomBoundary = bottomLeft.y;
+            _topBoundary = topRight.y;
         }
         private void LateUpdate()
         {
             Vector3 pos = transform.position;
-            pos.x = Mathf.Clamp(pos.x, leftBoundary, rightBoundary);
-            pos.y = Mathf.Clamp(pos.y, bottomBoundary, topBoundary);
+            pos.x = Mathf.Clamp(pos.x, _leftBoundary, _rightBoundary);
+            pos.y = Mathf.Clamp(pos.y, _bottomBoundary, _topBoundary);
             transform.position = pos;
         }
     }
