@@ -1,0 +1,41 @@
+.Text {
+    -unity-text-align: upper-left;
+    align-items: auto;
+    justify-content: flex-start;
+    align-self: flex-start;
+    -unity-font-style: bold;
+    font-size: 118px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+}
+
+.Button {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    justify-content: flex-start;
+    align-self: center;
+    width: 257px;
+    height: 96px;
+    font-size: 39px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(101, 101, 101);
+    background-image: url("project://database/Assets/UI/Images/purpleRectNormal.png?fileID=2800000&guid=50b37bae1bc260d4da4f5ff4aacb9985&type=3#purpleRectNormal");
+}
+
+.Button:hover {
+    scale: 1.2 1.2;
+    transition-property: scale;
+    transition-duration: 0.2s;
+}
+
+.Button:active {
+    background-image: url("project://database/Assets/UI/Images/purpleBtnInactive.png?fileID=2800000&guid=6325fbd788c367c4385cad46df60eaf1&type=3#purpleBtnInactive");
+}

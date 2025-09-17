@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/USS/MainMenu.uss?fileID=7433441132597879392&amp;guid=9b90eeb59ac318f4b8b487cf0d15092c&amp;type=3#MainMenu" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(202, 146, 193);">
+        <ui:Label text="Fly a drone" class="Text" style="align-self: center; translate: 0 200px;" />
+        <ui:Button text="Start Game&#10;" name="B_Start" class="Button" style="translate: 0 229px;" />
+        <ui:Button text="Exit Game" name="B_Exit" class="Button" style="translate: 0 229px;" />
+    </ui:VisualElement>
+</ui:UXML>

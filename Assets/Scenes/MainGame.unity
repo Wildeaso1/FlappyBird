@@ -213,7 +213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 25886145116a6c143a1f61ce1c9e827b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -419,6 +419,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 15
   moveSpeed: 7
+  dashCooldown: 2
+  dashForce: 10
   playerCamera: {fileID: 330585545}
   onFirstJump:
     m_PersistentCalls:
@@ -433,6 +435,33 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ActivatePropeller
+          m_BoolArgument: 0
+        m_CallState: 2
+  onWallHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2042060051}
+        m_TargetAssemblyTypeName: Data.GameData, Assembly-CSharp
+        m_MethodName: ActivateLoseScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1669425151}
+        m_TargetAssemblyTypeName: Framework.Animation.AnimationController, Assembly-CSharp
+        m_MethodName: PlayAnimation
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Deactivate
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &330585543
@@ -736,7 +765,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 25886145116a6c143a1f61ce1c9e827b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1013,9 +1042,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cecc9488ab4c97a4bb97bf685d9c5f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 313693295}
-  _inputAsset: {fileID: 0}
-  _playerMovement: {fileID: 313693299}
+  playerInput: {fileID: 313693295}
+  inputAsset: {fileID: 0}
+  playerMovement: {fileID: 313693299}
+  gameData: {fileID: 2042060051}
 --- !u!4 &883748026
 Transform:
   m_ObjectHideFlags: 0
@@ -1074,7 +1104,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b4c2e7c520b35ff4bad410af899f68eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
