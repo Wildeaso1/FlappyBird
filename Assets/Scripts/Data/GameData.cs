@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Walls;
 
@@ -8,16 +9,35 @@ namespace Data
     public class GameData : MonoBehaviour
     {
         public string ScoreLabelText = null;
+        public bool IsGameOver { get; set; }
         [SerializeField] private UIDocument uiDocument;
         private Label _scoreLabel;
+        private VisualElement _loseScreen;
         private WallManager _wallManager;
         public int Score { get; private set; }
 
         private void Awake()
         {
             _scoreLabel = uiDocument.rootVisualElement.Q<Label>(ScoreLabelText);
+            _loseScreen = uiDocument.rootVisualElement.Q<VisualElement>("LoseScreen");
+            _loseScreen.style.display = DisplayStyle.None;
             _wallManager = GetComponent<WallManager>();
             SpeedUp();
+        }
+
+        public void RestartGame()
+        {
+            if (!IsGameOver) return;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void QuitGame()
+        {
+            if(!IsGameOver) return;
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+                Application.Quit();
         }
 
         public void IncreaseScore(int value)
@@ -42,6 +62,12 @@ namespace Data
                 default:
                     break;
             }
+        }
+
+        public void ActivateLoseScreen()
+        {
+            IsGameOver = true;
+            _loseScreen.style.display = DisplayStyle.Flex;
         }
     }
 }
