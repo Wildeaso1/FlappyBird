@@ -14,7 +14,10 @@ namespace Walls
         [SerializeField] private List<GameObject> activeWalls;
         [SerializeField] private int spawnCount;
         [SerializeField] private float spawnDelay = 0.1f;
+        [SerializeField] private int poolSize = 10; // Pool size for each wall type
+        
         private GameData _gameData;
+        private Dictionary<GameObject, Queue<GameObject>> _wallPools;
         
         private bool _firstSpawn;
         private int _wallsLength;
@@ -24,6 +27,24 @@ namespace Walls
         {
             _wallsLength = walls.Length;
             _gameData = GetComponent<GameData>();
+            InitializePools();
+        }
+
+        private void InitializePools()
+        {
+            _wallPools = new Dictionary<GameObject, Queue<GameObject>>();
+            
+            foreach (var wallObject in walls)
+            {
+                var pool = new Queue<GameObject>();
+                for (int i = 0; i < poolSize; i++)
+                {
+                    var pooledWall = Instantiate(wallObject.wall);
+                    pooledWall.SetActive(false);
+                    pool.Enqueue(pooledWall);
+                }
+                _wallPools[wallObject.wall] = pool;
+            }
         }
 
         private void Start() => SpawnWall();
@@ -46,7 +67,6 @@ namespace Walls
             
             var prefab = walls[r].wall;
             var spawnPosition = walls[r].spawnPosition;
-            print($"Spawn Position: {spawnPosition}");
             switch (walls[r].wallDirection)
             {
                 case WallDirection.UP:
@@ -71,16 +91,50 @@ namespace Walls
             }
             else
                 _firstSpawn = false;
-            var spawnedWall = Instantiate(prefab,spawnPosition, prefab.transform.rotation);
             
-            activeWalls.Add(spawnedWall);
+            var spawnedWall = GetPooledWall(prefab);
+            if (spawnedWall != null)
+            {
+                spawnedWall.transform.position = spawnPosition;
+                spawnedWall.transform.rotation = prefab.transform.rotation;
+                spawnedWall.SetActive(true);
+                activeWalls.Add(spawnedWall);
+            }
+        }
+
+        private GameObject GetPooledWall(GameObject prefab)
+        {
+            if (_wallPools.ContainsKey(prefab) && _wallPools[prefab].Count > 0)
+            {
+                return _wallPools[prefab].Dequeue();
+            }
+            
+            return Instantiate(prefab);
         }
 
         public void RemoveWall(GameObject wall)
         {
             if (wall)
+            {
                 activeWalls.Remove(wall);
+                ReturnWallToPool(wall);
+            }
         }
+
+        private void ReturnWallToPool(GameObject wall)
+        {
+            wall.SetActive(false);
+            
+            foreach (var wallObject in walls)
+            {
+                if (wall.name.Contains(wallObject.wall.name))
+                {
+                    _wallPools[wallObject.wall].Enqueue(wall);
+                    return;
+                }
+            }
+        }
+
         public void IncreaseWallsSpeed()
         {
             foreach (var wall in walls)
