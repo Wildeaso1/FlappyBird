@@ -9,6 +9,7 @@ namespace Player
         [SerializeField, Range(5,10)] private float moveSpeed;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private UnityEvent onFirstJump;
+        public UnityEvent onWallHit;
         
         private Rigidbody _rigidbody;
         private float leftBoundary;
@@ -53,7 +54,6 @@ namespace Player
             bottomBoundary = bottomLeft.y;
             topBoundary = topRight.y;
         }
-        
         private void LateUpdate()
         {
             Vector3 pos = transform.position;
