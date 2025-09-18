@@ -2,12 +2,18 @@ using Data;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using Framework.Audio;
 
 namespace Framework.Input
 {
     public class InputParser : MonoBehaviour
     {
+        [Header("Audio System")]
+        [SerializeField] public AudioPlayer audioPlayer;
+        [SerializeField] private AudioClip droneAudio;
+        [SerializeField] private AudioClip gameMusic;
+        [SerializeField] private AudioClip jumpSound;
+        [Header("Input System")]
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private InputActionAsset inputAsset;
         [Header("Player Movement")]
@@ -20,6 +26,7 @@ namespace Framework.Input
         private void Awake()
         {
             inputAsset = playerInput.actions;
+            audioPlayer.PlayAudioLooped(gameMusic);
         }
 
         private void OnEnable() => AddListeners();
@@ -45,6 +52,7 @@ namespace Framework.Input
         private void Jump(InputAction.CallbackContext context)
         {
             if (gameData.IsGameOver) return;
+            audioPlayer.PlayAudioOverlapping(jumpSound);
             playerMovement.Jump();
         }
 
@@ -69,6 +77,7 @@ namespace Framework.Input
                 return;
             
             float moveDirection = inputAsset["Move"].ReadValue<float>();
+            
 
             if (moveDirection == 0)
             {
@@ -76,9 +85,9 @@ namespace Framework.Input
                     return;
                 isMoving = false;
             }
-            
             playerMovement.MovePlayer(moveDirection);
             isMoving = true;
+            audioPlayer.PlayAudio(droneAudio);
         }
     }
 }

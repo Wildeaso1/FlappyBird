@@ -9,6 +9,7 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 0 0 0 rgb(0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Fonts/BADABB__.TTF?fileID=12800000&guid=d3673ff1962eb8e4a975d9b0fa8aedbf&type=3#BADABB__");
 }
 
 .Button {
@@ -28,6 +29,8 @@
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-color: rgb(101, 101, 101);
     background-image: url("project://database/Assets/UI/Images/purpleRectNormal.png?fileID=2800000&guid=50b37bae1bc260d4da4f5ff4aacb9985&type=3#purpleRectNormal");
+    transition-property: scale;
+    transition-duration: 0.2s;
 }
 
 .Button:hover {

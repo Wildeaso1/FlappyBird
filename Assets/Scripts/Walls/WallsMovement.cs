@@ -11,6 +11,7 @@ namespace Walls
     {
         [SerializeField] private GameObject player;
         [SerializeField] private WallsObject  wall;
+        [SerializeField] private AudioClip playerReached;
         
         private PlayerMovement _playerMovement;
         private GameObject _managerObject;
@@ -73,8 +74,6 @@ namespace Walls
 
             if (z <= player.transform.position.z && !_isMovingAway)
             {
-                print($"Reached player");
-                
                 endPosition = new Vector3(wall.despawnPosition.x, wall.despawnPosition.y, wall.despawnPosition.z);
                 
                 switch (wall.wallDirection)
@@ -97,6 +96,7 @@ namespace Walls
                 _gameData.IncreaseScore(wall.ScoreToAdd);
                 _isMovingAway = true;
                 _isMovingTowardsPlayer = false;
+                _wallManager.AudioPlayer.PlayAudio(playerReached);
             }
 
             if (_isMovingAway)

@@ -123,3 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   wall: {fileID: 11400000, guid: 3cab87a2bdae4b94f892f92e396ccd53, type: 2}
+  playerReached: {fileID: 8300000, guid: 7980434650024af42be8c6d273aff50f, type: 3}

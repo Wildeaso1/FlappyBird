@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,7 +29,7 @@ namespace Player
                 playerCamera = Camera.main;
                 
             CalculateBoundaries();
-            _rigidbody.useGravity = false;
+            StartCoroutine(EnableGravity());
         }
         public void Jump()
         {
@@ -76,6 +77,13 @@ namespace Player
             pos.x = Mathf.Clamp(pos.x, _leftBoundary, _rightBoundary);
             pos.y = Mathf.Clamp(pos.y, _bottomBoundary, _topBoundary);
             transform.position = pos;
+        }
+
+        private IEnumerator EnableGravity()
+        {
+            _rigidbody.useGravity = false;
+            yield return new WaitForSeconds(2f);
+            _rigidbody.useGravity = true;
         }
     }
 }

@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Framework.Audio;
 
 namespace Framework.UI
 {
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private AudioClip _clickSound;
+        [SerializeField] private AudioPlayer _audioPlayer;
         private UIDocument _uiDocument;
         private Button _startButton;
         private Button _quitButton;
@@ -26,7 +28,7 @@ namespace Framework.UI
         {
             StartCoroutine(DelayAction(() =>
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainGame");
             }, 0.5f));
         }
     
@@ -43,15 +45,9 @@ namespace Framework.UI
 
         private IEnumerator DelayAction(Action action, float delay)
         {
-            PlayClickSound();
+            _audioPlayer.PlayAudio(_clickSound);
             yield return new WaitForSeconds(delay);
             action?.Invoke();
-        }
-
-        private void PlayClickSound()
-        {
-            if(_clickSound != null)
-                AudioSource.PlayClipAtPoint(_clickSound, Camera.main.transform.position);
         }
     }
 }

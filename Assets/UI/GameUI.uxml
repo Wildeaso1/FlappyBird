@@ -1,11 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/USS/GameUI.uss?fileID=7433441132597879392&amp;guid=b5135cb2cd00b6e4d9c9c72e00250e9b&amp;type=3#GameUI" />
-    <ui:VisualElement name="Container" class="MainContainer" style="flex-grow: 1;">
+    <ui:VisualElement name="GameUI" class="MainContainer" style="flex-grow: 1;">
         <ui:Label text="Score" name="ScoreText" class="ScoreText" />
     </ui:VisualElement>
     <ui:VisualElement name="LoseScreen" style="flex-grow: 1; position: absolute; top: auto; left: auto; bottom: auto; right: auto; width: 1920px; height: 1080px; background-color: rgba(255, 0, 0, 0.42);">
         <ui:Label text="You lose!" emoji-fallback-support="true" name="Lose" class="Text" style="-unity-text-align: upper-left; translate: 0 420px;" />
         <ui:Label text="Press R to restart!" emoji-fallback-support="true" name="Restart" parse-escape-sequences="false" class="Text" style="-unity-text-align: upper-left; translate: 0 420px;" />
         <ui:Label text="Press Escape to exit!" emoji-fallback-support="true" name="Escape" parse-escape-sequences="false" class="Text" style="-unity-text-align: upper-left; translate: 0 420px;" />
+        <ui:Label text="Your score:&#10;High Score:" name="HighScore" class="Text" style="translate: 0 -250px;" />
     </ui:VisualElement>
 </ui:UXML>

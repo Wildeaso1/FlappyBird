@@ -12,6 +12,7 @@ namespace Data
         public bool IsGameOver { get; set; }
         [SerializeField] private UIDocument uiDocument;
         private Label _scoreLabel;
+        private Label _highScoreText;
         private VisualElement _loseScreen;
         private WallManager _wallManager;
         public int Score { get; private set; }
@@ -20,6 +21,7 @@ namespace Data
         {
             _scoreLabel = uiDocument.rootVisualElement.Q<Label>(ScoreLabelText);
             _loseScreen = uiDocument.rootVisualElement.Q<VisualElement>("LoseScreen");
+            _highScoreText = uiDocument.rootVisualElement.Q<Label>("HighScore");
             _loseScreen.style.display = DisplayStyle.None;
             _wallManager = GetComponent<WallManager>();
             SpeedUp();
@@ -55,7 +57,9 @@ namespace Data
                 case 10:
                 case 20:
                 case 30:
+                case 40:
                 case 50:
+                case 75:
                 case 100:
                     _wallManager.IncreaseWallsSpeed();
                     break;
@@ -67,6 +71,10 @@ namespace Data
         public void ActivateLoseScreen()
         {
             IsGameOver = true;
+            int highScore = PlayerPrefs.GetInt("Score", 0);
+            if (Score > highScore)
+                PlayerPrefs.SetInt("Score",Score);
+            _highScoreText.text = $"Your score: {Score} \nHigh Score: {PlayerPrefs.GetInt("Score", 0)}";
             _loseScreen.style.display = DisplayStyle.Flex;
         }
     }

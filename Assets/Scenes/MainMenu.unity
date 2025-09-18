@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 1028470699}
   - component: {fileID: 1028470698}
   - component: {fileID: 1028470700}
+  - component: {fileID: 1028470701}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -305,6 +306,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clickSound: {fileID: 8300000, guid: d5483271a20de504ab4d695a46fab133, type: 3}
+  _audioPlayer: {fileID: 1028470701}
+--- !u!114 &1028470701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028470697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8664b1ee9316474a9e974c419702307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1280598864
 GameObject:
   m_ObjectHideFlags: 0
